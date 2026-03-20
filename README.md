@@ -37,13 +37,11 @@ npm run preview
 
 **https://wind-forecast-kappa.vercel.app/**
 
-### Vercel settings (fix 404)
+The app targets **Vite 6** (Rollup) rather than Vite 8 so deployments on Linux (e.g. Vercel) avoid Rolldown’s platform-specific optional dependencies failing under npm workspaces.
 
-Deploy from the **Git repo root** (leave **Root Directory** empty in Vercel). The build must run Vite and produce `wind-forecast-app/dist` (takes ~10–30s, not a few milliseconds).
+## Vercel
 
-- **Framework preset:** Vite (or leave auto-detect after `vercel.json` is deployed).
-- **Build Command:** `npm run build` (default — uses root `package.json` workspaces).
-- **Install Command:** `npm install` (installs workspace deps).
-- **Output Directory:** `wind-forecast-app/dist` (must match `vercel.json`).
+- **Root Directory:** *(empty — repo root)*  
+- **Build:** `npm run build` · **Output:** `wind-forecast-app/dist`  
+- If **Root Directory** is `wind-forecast-app` instead, set **Output** to `dist` only.
 
-If you instead set **Root Directory** to `wind-forecast-app`, then use **Output Directory** `dist` only (not `wind-forecast-app/dist`) and remove/ignore the root `vercel.json` behaviour — mixed settings cause an empty deploy and **404**.
