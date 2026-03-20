@@ -98,55 +98,53 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <header className="page-intro">
-        <div className="hero-card">
-          <p className="hero-eyebrow">UK national wind power · Elexon BMRS</p>
-          <h1 className="hero-title">UK wind forecast monitor</h1>
-          <p className="hero-tagline">
-            Compare <span className="hero-accent hero-accent--actual">actual</span> generation (blue) to the
-            latest eligible <span className="hero-accent hero-accent--forecast">forecast</span> (green) for each
-            half-hour—so you can see forecast accuracy at a glance.
-          </p>
+      <header className="app-header animate-fade-in">
+        <div className="app-header-title-group">
+          <h1 className="app-title">UK wind forecast monitor</h1>
+          <p className="app-subtitle">UK national wind power · Elexon BMRS</p>
         </div>
+        <p className="app-tagline">
+          Compare <span className="hero-accent hero-accent--actual">actual</span> generation (blue) to the
+          latest eligible <span className="hero-accent hero-accent--forecast">forecast</span> (green) for each
+          half-hour to see accuracy at a glance.
+        </p>
       </header>
 
-      <section id="part-monitor" className="content-section challenge-block">
+      <section id="part-monitor" className="content-section challenge-block animate-fade-in delay-100">
         <SectionHeading
           title="Forecast monitoring app"
           description="Pick a time range and horizon. The chart follows the challenge rule: for each target time, use the newest forecast issued at least horizon hours before that target (default 4h)."
         />
-        <DatasetPanel />
+        <Controls
+          startTime={startTime}
+          setStartTime={setStartTime}
+          endTime={endTime}
+          setEndTime={setEndTime}
+          horizon={horizon}
+          setHorizon={setHorizon}
+        />
+        <div className="chart-section" style={{ marginTop: '0.5rem' }}>
+          {loading && <div className="loading-state">Loading Elexon data…</div>}
+          {error && <div className="error-state">{error}</div>}
+          {!loading && !error && data.length === 0 && (
+            <div className="empty-state">
+              No points in this range. Try recent dates so forecasts overlap your window; actuals require Jan
+              2025+.
+            </div>
+          )}
+          {!loading && !error && data.length > 0 && <ChartWidget data={data} />}
+        </div>
 
         <div className="challenge-subsection challenge-subsection--divider">
-          <h3 className="challenge-h3">Application</h3>
-          <p className="application-hint">
-            <strong>Example:</strong> for target <time dateTime="2024-05-24T18:00">24/05/24 18:00</time> and a{' '}
-            <strong>4h</strong> horizon, the value shown is the latest forecast with{' '}
-            <code>publishTime</code> before <time dateTime="2024-05-24T14:00">24/05/24 14:00</time>.
-          </p>
-          <Controls
-            startTime={startTime}
-            setStartTime={setStartTime}
-            endTime={endTime}
-            setEndTime={setEndTime}
-            horizon={horizon}
-            setHorizon={setHorizon}
+          <SectionHeading
+            title="Dataset & Challenge Details"
+            description="The stream API rules and dataset specs governing this application."
           />
-          <div className="chart-section">
-            {loading && <div className="loading-state">Loading Elexon data…</div>}
-            {error && <div className="error-state">{error}</div>}
-            {!loading && !error && data.length === 0 && (
-              <div className="empty-state">
-                No points in this range. Try recent dates so forecasts overlap your window; actuals require Jan
-                2025+.
-              </div>
-            )}
-            {!loading && !error && data.length > 0 && <ChartWidget data={data} />}
-          </div>
+          <DatasetPanel />
         </div>
       </section>
 
-      <section id="part-analysis" className="content-section challenge-block challenge-block--muted">
+      <section id="part-analysis" className="content-section challenge-block challenge-block--muted animate-fade-in delay-200">
         <SectionHeading
           title="Analysis"
           description="Offline notebooks in the repo study forecast error (distribution, horizon, time-of-day) and historical wind reliability with an MW planning recommendation."
