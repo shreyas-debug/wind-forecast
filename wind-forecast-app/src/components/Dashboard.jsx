@@ -4,6 +4,7 @@ import { fetchActualWindGeneration, fetchForecastWindGeneration } from '../api/e
 import ChartWidget from './ChartWidget';
 import Controls from './Controls';
 import DatasetPanel from './DatasetPanel';
+import { NOTEBOOK_FORECAST_ERROR, NOTEBOOK_RELIABILITY } from '../constants/repo';
 
 function getDefaultDates() {
   const now = new Date();
@@ -152,11 +153,26 @@ export default function Dashboard() {
         />
         <ul className="analysis-list">
           <li>
-            <strong>01_forecast_error_analysis.ipynb</strong> — error characteristics of the forecast dataset.
+            <a
+              className="analysis-notebook-link"
+              href={NOTEBOOK_FORECAST_ERROR}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              01_forecast_error_analysis.ipynb
+            </a>{' '}
+            — error characteristics of the forecast dataset.
           </li>
           <li>
-            <strong>02_historical_wind_reliability.ipynb</strong> — actual generation history and dependable MW
-            expectation.
+            <a
+              className="analysis-notebook-link"
+              href={NOTEBOOK_RELIABILITY}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              02_historical_wind_reliability.ipynb
+            </a>{' '}
+            — actual generation history and dependable MW expectation.
           </li>
         </ul>
         <p className="analysis-run">

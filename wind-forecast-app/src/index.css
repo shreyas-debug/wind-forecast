@@ -302,9 +302,17 @@ body {
   line-height: 1.6;
 }
 
-.analysis-list strong {
-  color: var(--text-primary);
+.analysis-notebook-link {
   font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.35);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.analysis-notebook-link:hover {
+  color: #1d4ed8;
+  border-bottom-color: #1d4ed8;
 }
 
 .analysis-run {
