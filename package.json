@@ -1,0 +1,8 @@
+{
+  "name": "wind-forecast-challenge",
+  "private": true,
+  "workspaces": ["wind-forecast-app"],
+  "scripts": {
+    "build": "npm run build --workspace wind-forecast-app"
+  }
+}
